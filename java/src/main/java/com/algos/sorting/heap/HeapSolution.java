@@ -1,8 +1,5 @@
 package com.algos.sorting.heap;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 /**
  * Merge Sorted Array.
  *
