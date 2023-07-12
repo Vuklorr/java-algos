@@ -16,7 +16,7 @@ package com.algos.sorting.bubble;
  * nums[i] is either 0, 1, or 2.
  */
 
-public class Solution {
+public class BubbleSolution {
     public void sortColors(int[] nums) {
         boolean isSorted = false;
         while (!isSorted) {

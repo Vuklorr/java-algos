@@ -16,7 +16,7 @@ package com.algos.sorting.counting;
  * nums[i] is either 0, 1, or 2.
  */
 
-public class Solution {
+public class CountingSolution {
     public void sortColors(int[] nums) {
         final int MAX_VALUE = 3;
         int[] counting = new int [MAX_VALUE];
