@@ -18,7 +18,8 @@ package com.algos.sorting.counting;
 
 public class Solution {
     public void sortColors(int[] nums) {
-        int[] counting = new int [3];
+        final int MAX_VALUE = 3;
+        int[] counting = new int [MAX_VALUE];
         for(int i : nums) {
             counting[i]++;
         }
@@ -27,10 +28,32 @@ public class Solution {
 
         for(int i = 0; i < counting.length; i++) {
             int count = counting[i];
-            while (count > 0) {
+            while (count-- > 0) {
                 nums[index++] = i;
-                count--;
             }
+        }
+    }
+
+    public void sortColorsStable(int[] nums) {
+        final int MAX_VALUE = 3;
+        int[] counting = new int[MAX_VALUE];
+        int[] out = new int[nums.length];
+
+        for(int i : nums) {
+            counting[i]++;
+        }
+
+        for(int i = 1; i < counting.length; i++) {
+            counting[i] += counting[i - 1];
+        }
+
+        for(int i = nums.length - 1; i >= 0; i--) {
+            out[counting[nums[i]] - 1] = nums[i];
+            counting[nums[i]]--;
+        }
+        
+        for(int i = 0; i < out.length; i++) {
+            nums[i] = out[i];
         }
     }
 }
