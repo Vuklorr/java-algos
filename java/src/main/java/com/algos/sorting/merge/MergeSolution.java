@@ -29,57 +29,15 @@ public class MergeSolution {
             map.put(heights[i], names[i]);
         }
 
-        mergeSort(heights, heights.length);
+        MergeSort mergeSort = new MergeSort(heights);
+
+        mergeSort.mergeSort(0, heights.length - 1);
+
 
         for(int i = 0; i < heights.length; i++) {
             sortNames[i] = map.get(heights[i]);
         }
 
         return sortNames;
-    }
-
-    private void mergeSort(int[] nums, int len) {
-        if(len < 2) {
-            return;
-        }
-
-        int mid = len / 2;
-        int[] leftNums = new int[mid];
-        int[] rightNums = new int[len - mid];
-
-        for(int i = 0; i < mid; i++) {
-            leftNums[i] = nums[i];
-        }
-
-        for(int i = mid; i < len; i++) {
-            rightNums[i - mid] = nums[i];
-        }
-
-        mergeSort(leftNums, mid);
-        mergeSort(rightNums, len - mid);
-
-        merge(nums, leftNums, rightNums, mid, len - mid);
-    }
-
-    private void merge(int[] nums, int[] leftNums, int[] rightNums, int left, int right) {
-        int i = 0;
-        int j = 0;
-        int k = 0;
-
-        while (i < left && j < right) {
-            if(leftNums[i] <= rightNums[j]) {
-                nums[k++] = rightNums[j++];
-            } else {
-                nums[k++] = leftNums[i++];
-            }
-        }
-
-        while (i < left) {
-            nums[k++] = leftNums[i++];
-        }
-
-        while (j < right) {
-            nums[k++] = rightNums[j++];
-        }
     }
 }
