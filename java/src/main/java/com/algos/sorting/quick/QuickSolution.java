@@ -40,7 +40,7 @@ public class QuickSolution {
             return;
         }
 
-        int indexSupport = (start + end) / 2;
+        int indexSupport = start + (end - start) / 2;
         int valueSupport = nums[indexSupport];
 
         int left = start;
