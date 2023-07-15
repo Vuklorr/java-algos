@@ -1,7 +1,5 @@
 package com.algos.binsearch;
 
-import java.util.Scanner;
-
 /**
  * Дипломы.
  * Когда Петя учился в школе, он часто участвовал в олимпиадах по информатике, математике и физике.
@@ -22,13 +20,13 @@ import java.util.Scanner;
  */
 
 public class Task1 {
-    public long diploma(int w, int h, int n) {
+    public long diploma(long w, long h, long n) {
         long left = 0;
-        long right = (long) Math.max(w, h) * n;
+        long right = Math.max(w, h) * n;
 
         while (left < right) {
-            long mid = (left + right) / 2;
-            if((double)(mid / w) * (double)(mid / h) < n) {
+            long mid = left + (right - left) / 2;
+            if((mid / w) * (mid / h) < n) {
                 left = mid + 1;
             } else {
                 right = mid;
