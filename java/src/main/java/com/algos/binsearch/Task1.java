@@ -22,13 +22,7 @@ import java.util.Scanner;
  */
 
 public class Task1 {
-    public void diploma() {
-        Scanner in = new Scanner(System.in);
-
-        int w = in.nextInt();
-        int h = in.nextInt();
-        int n = in.nextInt();
-
+    public long diploma(int w, int h, int n) {
         long left = 0;
         long right = (long) Math.max(w, h) * n;
 
@@ -41,7 +35,6 @@ public class Task1 {
             }
         }
 
-        System.out.println(left);
-        in.close();
+        return left;
     }
 }
