@@ -9,7 +9,7 @@ public class MergeSort {
 
     public void mergeSort(int start, int end) {
         if(start < end) {
-            int mid = (start + end) / 2;
+            int mid = start + (end - start) / 2;
             mergeSort(start, mid);
             mergeSort(mid + 1, end);
 
