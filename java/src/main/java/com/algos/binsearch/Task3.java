@@ -18,44 +18,46 @@ package com.algos.binsearch;
 
 public class Task3 {
     public int[] searchRange(int[] nums, int target) {
-        int targetIndex = binSearch(nums, target);
-
-        if(targetIndex == -1) {
+        if(nums.length == 0) {
             return new int[]{-1, -1};
         }
 
-        int i = targetIndex;
-        int j = targetIndex + 1;
+        int leftIndex = leftBinSearch(nums, target);
+        int rightIndex = rightBinSearch(nums, target);
 
-        while(i >= 0 && nums[i] == target) {
-            i--;
-        }
-        while(j < nums.length && nums[j] == target) {
-            j++;
-        }
-
-        return new int[] {++i, --j};
-
+        return new int[] {leftIndex, rightIndex};
     }
 
-    private int binSearch(int[] nums, int target) {
+    private int leftBinSearch(int[] nums, int target) {
         int left = 0;
         int right = nums.length - 1;
-        int mid;
 
-        while(left <= right) {
-            mid = left + (right - left) / 2;
+        while(left < right) {
+            int mid = left + (right - left) / 2;
 
-            if(nums[mid] == target) {
-                return mid;
-            }
+           if(nums[mid] < target) {
+                left = mid + 1;
+           } else {
+                right = mid;
+           }
+        }
+
+        return nums[left] == target ? left : -1;
+    }
+
+    private int rightBinSearch(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+
+        while(left < right) {
+            int mid = left + (right - left + 1) / 2;
 
             if(nums[mid] > target) {
                 right = mid - 1;
             } else {
-                left = mid + 1;
+                left = mid;
             }
         }
-        return -1;
+        return nums[right] == target ? right : -1;
     }
 }
