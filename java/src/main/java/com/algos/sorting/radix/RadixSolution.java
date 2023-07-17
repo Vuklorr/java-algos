@@ -58,13 +58,16 @@ public class RadixSolution {
         return max;
     }
 
-    private void countingSort(int[] nums, int digit) {
-        final int MAX_VALUE = 10;
+    private void countingSort(int[] nums, int total) {
+        final int MAX_VALUE = 0b1010;
         int[] counting = new int[MAX_VALUE];
         int[] out = new int[nums.length];
 
         for(int i : nums) {
-            counting[i / digit % 10]++;
+            //i = 123, total = 1 => digital = (123 / 1) % 10 = 3;
+            //i = 123, total = 10 => digital = (123 / 10) % 10 = 2;
+            int digit = (i / total) % 10;
+            counting[digit]++;
         }
 
         for(int i = counting.length - 2; i >= 0; i--) {
@@ -72,8 +75,12 @@ public class RadixSolution {
         }
 
         for(int i = nums.length - 1; i >= 0; i--) {
-            out[counting[nums[i] / digit % 10] - 1] = nums[i];
-            counting[nums[i] / digit % 10]--;
+            //i = 123, total = 1 => digital = (123 / 1) % 10 = 3;
+            //out[counting[3] - 1] = 123;
+            //i = 123, total = 10 => digital = (123 / 10) % 10 = 2;
+            int digit = (nums[i] / total) % 10;
+            out[counting[digit] - 1] = nums[i];
+            counting[digit]--;
         }
 
         for(int i = 0; i < out.length; i++) {
