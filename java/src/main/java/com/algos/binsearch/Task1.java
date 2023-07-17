@@ -1,5 +1,7 @@
 package com.algos.binsearch;
 
+import java.math.BigInteger;
+
 /**
  * Дипломы.
  * Когда Петя учился в школе, он часто участвовал в олимпиадах по информатике, математике и физике.
@@ -26,7 +28,11 @@ public class Task1 {
 
         while (left < right) {
             long mid = left + (right - left) / 2;
-            if((mid / w) * (mid / h) < n) {
+            BigInteger bigInteger = new BigInteger(String.valueOf((mid / h)));
+            BigInteger bigTemp = new BigInteger(String.valueOf(mid / w));
+            bigInteger = bigInteger.multiply(bigTemp);
+
+            if(bigInteger.compareTo(BigInteger.valueOf(n)) < 0) {
                 left = mid + 1;
             } else {
                 right = mid;
