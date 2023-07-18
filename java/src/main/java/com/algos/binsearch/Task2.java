@@ -24,28 +24,59 @@ package com.algos.binsearch;
 
 public class Task2 {
     public int search(int[] nums, int target) {
-        if(nums.length == 1) {
-            return nums[0] == target ? 0 : -1;
-        }
-
-
+        int pivot = binSearchPivot(nums, target);
         int left = 0;
         int right = nums.length - 1;
 
-        while(left < right) {
+        if(nums[pivot] == target) {
+            return pivot;
+        }
+
+        if(target < nums[0]) {
+            left = pivot;
+        } else {
+            right = pivot - 1;
+        }
+
+        return binSearch(nums, left, right, target);
+    }
+
+    private int binSearchPivot(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+
+        while (left < right) {
             int mid = left + (right - left) / 2;
 
-            if (nums[mid] == target) {
+            if(nums[mid] == target) {
                 return mid;
             }
 
-            if ((nums[left] < nums[mid] && (target < nums[mid] && target >= nums[left])) ||
-                    (nums[left] > nums[mid] && (target < nums[mid] || target >= nums[left]))) {
+            if(nums[mid] < nums[0]) {
                 right = mid;
             } else {
                 left = mid + 1;
             }
         }
+        return left;
+    }
+
+    private int binSearch(int[] nums, int left, int right, int target) {
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+
+            if(nums[mid] == target) {
+                return mid;
+            }
+
+            if(nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+
         return nums[left] == target ? left : -1;
     }
+
 }
