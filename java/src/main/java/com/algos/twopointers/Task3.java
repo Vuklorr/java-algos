@@ -12,16 +12,17 @@ package com.algos.twopointers;
 
 public class Task3 {
     public void rotate(int[] nums, int k) {
-        int[] out = new int[nums.length];
         k %= nums.length;
+        swap(nums, 0, nums.length - 1);
+        swap(nums, 0, k - 1);
+        swap(nums, k, nums.length - 1);
+    }
 
-        for(int i = 0; i < nums.length; i++) {
-            int j = (nums.length - k + i) % nums.length;
-            out[i] = nums[j];
-        }
-
-        for(int i = 0; i < out.length; i++) {
-            nums[i] = out[i];
+    private void swap(int[] nums, int l, int r) {
+        while(l < r) {
+            int temp = nums[l];
+            nums[l++] = nums[r];
+            nums[r--] = temp;
         }
     }
 }
