@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Sort the People.
  * You are given an array of strings names, and an array heights
  * that consists of distinct positive integers. Both arrays are of length n.
  *
@@ -39,11 +40,35 @@ public class RadixSolution {
     }
 
     private void radixSort(int[] nums) {
-        int max = getMax(nums);
+        final int SIZE_BYTE = 4;
+        final int RADIX = 256;
 
-        for(int i = 1; max / i > 0; i *= 10) {
-            countingSort(nums, i);
+        for (int b = 0; b < SIZE_BYTE; b++) {
+            int[] out = new int[nums.length];
+            int[] count = new int[RADIX];
+
+            int mask = 0xFF << (b * 8);
+
+            for (int num : nums) {
+                int index = (num & mask) >> (b * 8);
+                count[index]++;
+            }
+
+            for (int i = RADIX - 2; i >= 0; i--) {
+                count[i] += count[i + 1];
+            }
+
+            for (int i = nums.length - 1; i >= 0; i--) {
+                int index = (nums[i] & mask) >> (b * 8);
+                out[count[index] - 1] = nums[i];
+                count[index]--;
+            }
+
+            for(int i = 0; i < out.length; i++) {
+                nums[i] = out[i];
+            }
         }
+
     }
 
     private int getMax(int[] nums) {
@@ -58,33 +83,4 @@ public class RadixSolution {
         return max;
     }
 
-    private void countingSort(int[] nums, int total) {
-        final int MAX_VALUE = 0b1010;
-        int[] counting = new int[MAX_VALUE];
-        int[] out = new int[nums.length];
-
-        for(int i : nums) {
-            //i = 123, total = 1 => digital = (123 / 1) % 10 = 3;
-            //i = 123, total = 10 => digital = (123 / 10) % 10 = 2;
-            int digit = (i / total) % 10;
-            counting[digit]++;
-        }
-
-        for(int i = counting.length - 2; i >= 0; i--) {
-            counting[i] += counting[i + 1];
-        }
-
-        for(int i = nums.length - 1; i >= 0; i--) {
-            //i = 123, total = 1 => digital = (123 / 1) % 10 = 3;
-            //out[counting[3] - 1] = 123;
-            //i = 123, total = 10 => digital = (123 / 10) % 10 = 2;
-            int digit = (nums[i] / total) % 10;
-            out[counting[digit] - 1] = nums[i];
-            counting[digit]--;
-        }
-
-        for(int i = 0; i < out.length; i++) {
-            nums[i] = out[i];
-        }
-    }
 }
